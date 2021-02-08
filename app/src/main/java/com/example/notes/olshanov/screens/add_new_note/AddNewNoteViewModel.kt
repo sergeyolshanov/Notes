@@ -8,8 +8,8 @@ import com.example.notes.olshanov.utilits.REPOSITORY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddNewNoteFragmentViewModel(application: Application) : AndroidViewModel(application) {
-    fun insert(note: AppNote, onSuccess:() -> Unit) =
+class AddNewNoteViewModel(application: Application) : AndroidViewModel(application) {
+    fun insert(note: AppNote, onSuccess: () -> Unit) =
         viewModelScope.launch(Dispatchers.IO) {
             REPOSITORY.insert(note){
                 onSuccess()

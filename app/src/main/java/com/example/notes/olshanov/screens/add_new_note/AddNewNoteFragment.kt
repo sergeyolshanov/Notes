@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.notes.olshanov.R
 import com.example.notes.olshanov.databinding.FragmentAddNewNoteBinding
-import com.example.notes.olshanov.databinding.FragmentMainBinding
 import com.example.notes.olshanov.models.AppNote
-import com.example.notes.olshanov.screens.main.MainFragmentViewModel
 import com.example.notes.olshanov.utilits.APP_ACTIVITY
 import com.example.notes.olshanov.utilits.showToast
 
@@ -18,8 +16,7 @@ class AddNewNoteFragment : Fragment() {
 
     private var _binding: FragmentAddNewNoteBinding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mViewModel: AddNewNoteFragmentViewModel
-
+    private lateinit var mViewModel: AddNewNoteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +32,15 @@ class AddNewNoteFragment : Fragment() {
     }
 
     private fun initialization() {
-        mViewModel = ViewModelProvider(this).get(AddNewNoteFragmentViewModel::class.java)
-        mBinding.btnAddNote.setOnClickListener{
+        mViewModel = ViewModelProvider(this).get(AddNewNoteViewModel::class.java)
+        mBinding.btnAddNote.setOnClickListener {
             val name = mBinding.inputNameNote.text.toString()
             val text = mBinding.inputTextNote.text.toString()
-            if(name.isEmpty()) {
+            if (name.isEmpty()){
                 showToast(getString(R.string.toast_enter_name))
             } else {
-                mViewModel.insert(AppNote(name = name, text = text)){
-                    APP_ACTIVITY.mNavController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                mViewModel.insert(AppNote(name = name,text = text)){
+                    APP_ACTIVITY.navController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
                 }
             }
         }

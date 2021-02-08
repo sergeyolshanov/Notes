@@ -13,7 +13,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainHolder>() {
 
     private var mListNotes = emptyList<AppNote>()
 
-    class MainHolder(view: View): RecyclerView.ViewHolder(view) {
+    class MainHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameNote: TextView = view.item_note_name
         val textNote: TextView = view.item_note_text
     }
@@ -23,12 +23,23 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainHolder>() {
         return MainHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        holder.nameNote.text = mListNotes[position].name
-        holder.textNote.text = mListNotes[position].text
+    override fun onViewAttachedToWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener{
+            MainFragment.click(mListNotes[holder.adapterPosition])
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
     }
 
     override fun getItemCount(): Int = mListNotes.size
+
+    override fun onBindViewHolder(holder: MainHolder, position: Int) {
+        holder.textNote.text = mListNotes[position].text
+        holder.nameNote.text = mListNotes[position].name
+    }
 
     fun setList(list: List<AppNote>) {
         mListNotes = list

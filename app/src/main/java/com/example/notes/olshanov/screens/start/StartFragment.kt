@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_start.*
 
 class StartFragment : Fragment() {
 
-    private var _binding: FragmentStartBinding? = null
+    private var _binding:FragmentStartBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: StartFragmentViewModel
 
@@ -22,8 +22,7 @@ class StartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStartBinding.inflate(layoutInflater, container, false)
-
+        _binding = FragmentStartBinding.inflate(layoutInflater,container,false)
         return mBinding.root
     }
 
@@ -36,13 +35,13 @@ class StartFragment : Fragment() {
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
         btn_room.setOnClickListener {
             mViewModel.initDatabase(TYPE_ROOM){
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_mainFragment)
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }
